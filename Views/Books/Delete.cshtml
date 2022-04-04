@@ -1,0 +1,58 @@
+﻿@model BookStore.Models.Book
+@{
+    ViewData["Title"] = "Eliminar Libro";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <h3>Edit a Book</h3>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-10">
+            <form method="post" asp-action="DeleteBook">
+                <input asp-for="id" type="hidden" />
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="title" class="control-label"></label>
+                    <input asp-for="title" class="form-control" disabled/>
+                    <span asp-validation-for="title" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="description" class="control-label"></label>
+                    <input asp-for="description" class="form-control" disabled/>
+                    <span asp-validation-for="description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="author" class="control-label"></label>
+                    <input asp-for="author" class="form-control" disabled/>
+                    <span asp-validation-for="author" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="dateRelease" class="control-label"></label>
+                    <input asp-for="dateRelease" class="form-control" disabled/>
+                    <span asp-validation-for="dateRelease" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="price" class="control-label"></label>
+                    <input asp-for="price" class="form-control" disabled/>
+                    <span asp-validation-for="price" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Delete Book" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

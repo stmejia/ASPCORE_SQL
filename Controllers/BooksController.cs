@@ -42,6 +42,7 @@ namespace BookStore.Controllers
         /// <param name="book"></param>
         /// <returns></returns>
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Create(Book book)
         {
             if (ModelState.IsValid)
@@ -54,6 +55,87 @@ namespace BookStore.Controllers
             }
 
             return View();
+        }
+
+        /// <summary>
+        /// HttpGet Edit
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public IActionResult Edit(int? id)
+        {
+            if (id == null || id == 0)
+                return NotFound();
+
+            //Obtains id
+            var book = _context.Book.Find(id);
+
+            if (book == null)
+                return NotFound();
+
+            return View(book);
+        }
+
+        /// <summary>
+        /// Edit a specific book
+        /// </summary>
+        /// <param name="book"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(Book book)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Book.Update(book);
+                _context.SaveChanges();
+
+                TempData["message"] = "The book has beed updated succesfuly";
+                return RedirectToAction("Index");
+            }
+
+            return View();
+        }
+
+        /// <summary>
+        /// HttpGet Delete
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public IActionResult Delete(int? id)
+        {
+            if (id == null || id == 0)
+                return NotFound();
+
+            //Obtains id
+            var book = _context.Book.Find(id);
+
+            if (book == null)
+                return NotFound();
+
+            return View(book);
+        }
+
+        /// <summary>
+        /// Delete a specific book
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteBook(int? id)
+        {
+            //Obtains book id
+            var book = _context.Book.Find(id);
+
+            if (book == null)
+                return NotFound();
+
+            _context.Book.Remove(book);
+            _context.SaveChanges();
+
+            TempData["message"] = "The book has beed deleted";
+            return RedirectToAction("Index");
         }
     }
 }
